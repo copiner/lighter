@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  <%=
+  htmlWebpackPlugin.files.chunks.main.entry
+    %>
+  <%=
+  htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)
+  %>
+
+  <%=
+  compilation.assets[htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)].source()
+  %>
+  </script>
+</head>
+<body>
+  <!-- insert inline -->
+  <% for(var k in htmlWebpackPlugin.files.chunks) { %>
+  <% if(k !== 'main') {%>
+    <script type="text/javascript"> src= "<%= htmlWebpackPlugin.files.chunks[k].entry%>"</script>
+  <% }%>
+  <%}%>
+</body>
+</html>

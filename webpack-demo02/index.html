@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script src="<%= htmlWebpackPlugin.files.chunks.about.entry %>"></script>
+  <!--<script src="./dist/bundle.js"></script>-->
+  <!--如果多页面应用，生成的bundle.js,或者其他的这里都需要手动修改，添加，很麻烦，要运用插件" html-webpack-plugin" -->
+</head>
+<body>
+  
+  <%= htmlWebpackPlugin.options.date %>
+  <% for(var key in htmlWebpackPlugin){ %>
+    <%= key %>
+  <% } %>
+
+  插件官网查找每个插件详细信息
+
+  <% for(var key in htmlWebpackPlugin.files){ %>
+    <%= key %> : <%= JSON.stringify(htmlWebpackPlugin.files[key]) %>
+  <% } %>
+
+  <% for(var key in htmlWebpackPlugin.options){ %>
+    <%= key %> : <%= JSON.stringify(htmlWebpackPlugin.options[key]) %>
+  <% } %>
+
+<script src="<%= htmlWebpackPlugin.files.chunks.index.entry %>"></script>
+</body>
+</html>
