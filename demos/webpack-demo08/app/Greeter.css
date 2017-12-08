@@ -1,0 +1,6 @@
+/*导入.root到Greeter.js中*/
+.root {
+  background-color: #eee;
+  padding: 10px;
+  border: 3px solid #ccc;
+}
