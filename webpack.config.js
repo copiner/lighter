@@ -3,9 +3,8 @@ const path = require("path");
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 module.exports = {
+  mode: 'production',
   devtool: 'eval-source-map', //source maps
   entry:  __dirname + "/src/index.js",
   output: {
