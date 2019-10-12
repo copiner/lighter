@@ -45,13 +45,14 @@ module.exports = {
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
 
                     "style-loader",
 
-                     'css-loader',
-                     // Compiles Sass to CSS
-                     'sass-loader'
+                    MiniCssExtractPlugin.loader,
+
+                   'css-loader',
+                   // Compiles Sass to CSS
+                   'sass-loader'
                 ]
             }
         ]

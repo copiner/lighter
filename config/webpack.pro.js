@@ -47,10 +47,11 @@ module.exports = {
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                  MiniCssExtractPlugin.loader,
+
                   // Creates `style` nodes from JS strings
                   'style-loader',
                   // Translates CSS into CommonJS
+                  MiniCssExtractPlugin.loader,
                   'css-loader',
                   // Compiles Sass to CSS
                   'sass-loader',
