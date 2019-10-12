@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "webpack-dev-server --open",
-    "dev": "webpack",
-    "build": "set NODE_ENV=production && webpack --config webpack.config.js --progress"
+    "dev": "set NODE_ENV=development && webpack-dev-server --color --config config/webpack.dev.js --open",
+    "build": "set NODE_ENV=production && webpack --config config/webpack.pro.js --progress"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +16,7 @@
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.6.3",
     "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^3.0.0",
     "css-loader": "^3.2.0",
     "file-loader": "^4.2.0",
@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "core-js": "^3.2.1",
+    "lodash": "^4.17.15",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-redux": "^7.1.1",
