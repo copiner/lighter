@@ -1,9 +1,16 @@
 const webpack = require('webpack');
 const path = require("path");
 
-const HtmlPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin  = require('clean-webpack-plugin').CleanWebpackPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const isProd = process.env.NODE_ENV === 'development'
+
+console.log(process.env.NODE_ENV);
+console.log(process.NODE_ENV);
+
+console.log(isProd);
 
 module.exports = {
   mode: "development",
@@ -14,6 +21,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../build'),
     filename: 'bundle.js',
+    chunkFilename: 'vendor.js',
     publicPath:'/'
   },
   module: {
@@ -58,8 +66,16 @@ module.exports = {
         ]
     },
     plugins: [
-         new HtmlPlugin({
-            template: "./src/index.html"
+          new webpack.DefinePlugin({
+             PRODUCTION: JSON.stringify(true),
+             VERSION: JSON.stringify('5fa3b9'),
+             TWO: '1+1',
+             'typeof window': JSON.stringify('object'),
+             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+          }),
+         new HtmlWebpackPlugin({ // 打包输出HTML
+            title: 'Hello World',
+            filename: 'index.html'
          }),
          new CleanWebpackPlugin(),
          new webpack.HotModuleReplacementPlugin(),
@@ -68,7 +84,7 @@ module.exports = {
             // Options similar to the same options in webpackOptions.output
             // all options are optional
             //filename: '[name].css',
-            //chunkFilename: '[id].css',
+            chunkFilename: 'index.css',
             filename:"index.css",
 
             ignoreOrder: false // Enable to remove warnings about conflicting order
@@ -76,12 +92,24 @@ module.exports = {
      ],
      optimization: {
         splitChunks: {
+          chunks: "all",// all async initial
+          minSize: 30000,
+          maxSize: 0,
+          minChunks: 1,
+          maxAsyncRequests: 5,
+          maxInitialRequests: 3,
+          automaticNameDelimiter: "~",
+          name: true,
           cacheGroups: {
-            commons: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'vendors',
-              chunks: 'all'
-            }
+              vendors: {
+                  test: /[\\/]node_modules[\\/]/,
+                  priority: -10
+              },
+              default: {
+                  minChunks: 2,
+                  priority: -20,
+                  reuseExistingChunk: true
+              }
           }
        }
     },
