@@ -1,4 +1,4 @@
-{
+module.exports = {
   presets: [
     ["@babel/env",{
         targets: {
@@ -13,14 +13,14 @@
           proposals: true
         },
         useBuiltIns:"usage"
-    }],
+    }]
     // ["@babel/preset-react",{
     //      useBuiltIns:true
     // }]
   ],
   plugins : [
    ["@babel/plugin-transform-react-jsx", {
-     pragma: "h",    // 这里可配置任意的名称
+     // pragma: "h",    // 这里可配置任意的名称
      useBuiltIns:true
    }]
 ]
