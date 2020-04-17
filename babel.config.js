@@ -13,15 +13,18 @@ module.exports = {
           proposals: true
         },
         useBuiltIns:"usage"
+    }],
+    ["@babel/preset-react",{
+         useBuiltIns:true
     }]
-    // ["@babel/preset-react",{
-    //      useBuiltIns:true
-    // }]
   ],
   plugins : [
-   ["@babel/plugin-transform-react-jsx", {
-     // pragma: "h",    // 这里可配置任意的名称
-     useBuiltIns:true
-   }]
-]
+     ["@babel/plugin-transform-react-jsx", {
+       useBuiltIns:true
+     }],
+     ["react-css-modules", {
+        autoResolveMultipleImports:true,
+        exclude: 'node_modules'
+      }]
+  ]
 }

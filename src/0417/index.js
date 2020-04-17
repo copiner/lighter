@@ -1,20 +1,12 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import {Provider} from 'react-redux';
-import {createStore} from 'redux';
-import reducer from './reducers/index.js';
-import App from './containers/App.js';
+import asyncComponent from './util/'
 
-import "./index.scss"
-
-
-let store = createStore(reducer);
+const Button = asyncComponent(() => import('./button'));
 
 let render = () =>{
   ReactDom.render(
-      <Provider store={store}>
-          <App/>
-      </Provider>,
+      <Button/>,
       document.getElementById('root')
   );
 }

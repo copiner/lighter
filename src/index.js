@@ -3,9 +3,6 @@ element.setAttribute("id","root");
 document.body.appendChild(element);
 
 
-// import render from './1220/';
-//
-// render();
+import render from './0417/';
 
-import wend from './1221/';
-console.log(wend);
+render();

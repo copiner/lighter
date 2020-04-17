@@ -8,7 +8,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isProd = process.env.NODE_ENV === 'development'
 
 console.log(process.env.NODE_ENV);
-console.log(process.NODE_ENV);
 
 console.log(isProd);
 
@@ -20,8 +19,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../build'),
-    filename: 'bundle.js',
-    chunkFilename: 'vendor.js',
+    filename: 'bundle-[hash].js',
+    chunkFilename: 'vendor-[hash].js',
     publicPath:'/'
   },
   module: {
@@ -51,54 +50,66 @@ module.exports = {
               ]
             },
             {
-                test: /\.(sa|sc|c)ss$/,
+                test: /\.css$/,
                 use: [
 
                     "style-loader",
 
-                    MiniCssExtractPlugin.loader,
-
-                   'css-loader',
-                   // Compiles Sass to CSS
-                   'sass-loader'
+                    {
+                       loader: MiniCssExtractPlugin.loader,
+                       options: {
+                         /*
+                          you can specify a publicPath here，
+                          by default it uses publicPath in webpackOptions.output
+                         */
+                         //publicPath: '../',
+                         esModule: true,
+                         // only enable hot in development
+                         hmr: process.env.NODE_ENV === 'development',
+                         // if hmr does not work, this is a forceful method.
+                         reloadAll: true
+                       },
+                    },
+                    {
+                      loader: 'css-loader',
+                      options: {
+                          modules: true,
+                          importLoaders: 1
+                      }
+                    },
+                    { loader: 'postcss-loader' }
                 ]
             }
         ]
     },
     plugins: [
-          new webpack.DefinePlugin({
-             PRODUCTION: JSON.stringify(true),
-             VERSION: JSON.stringify('5fa3b9'),
-             TWO: '1+1',
-             'typeof window': JSON.stringify('object'),
-             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-          }),
-         new HtmlWebpackPlugin({ // 打包输出HTML
-            title: 'Hello World',
-            filename: 'index.html'
-         }),
-         new CleanWebpackPlugin(),
-         new webpack.HotModuleReplacementPlugin(),
+      new webpack.DefinePlugin({
+       ENV: JSON.stringify(process.env.NODE_ENV)
+      }),
+      new HtmlWebpackPlugin({ //打包输出HTML
+        title: 'Hello World',
+        filename: 'index.html'
+      }),
+      new CleanWebpackPlugin(),
+      new webpack.HotModuleReplacementPlugin(),
 
-         new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // all options are optional
-            //filename: '[name].css',
-            chunkFilename: 'index.css',
-            filename:"index.css",
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // all options are optional
+        filename: 'index-[hash].css',
+        chunkFilename: 'index-[hash].css',
 
-            ignoreOrder: false // Enable to remove warnings about conflicting order
-          })
-     ],
-     optimization: {
+        ignoreOrder: false // Enable to remove warnings about conflicting order
+      })
+    ],
+    optimization: {
         splitChunks: {
-          chunks: "all",// all async initial
+          //chunks: "all",// all async initial
           minSize: 30000,
           maxSize: 0,
           minChunks: 1,
           maxAsyncRequests: 5,
           maxInitialRequests: 3,
-          automaticNameDelimiter: "~",
           name: true,
           cacheGroups: {
               vendors: {

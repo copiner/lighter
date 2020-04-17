@@ -1,0 +1,8 @@
+.colour {
+  background-color: blue;
+}
+
+.primary{
+    border: 1px solid red;
+    border-radius: 5px;
+}
