@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
 import './index.css';
-import './button.css';
+import style from  './button.css';
 
 
 class Button extends Component {
     render() {
         return (
             <div>
-              <p styleName="small">Small</p>
-              <p styleName="primary">Submit</p>
-              <div styleName="colour">ABS</div>
+              <p className="small">Small</p>
+              <p styleName="style.primary">Submit</p>
+              <div styleName="style.colour">ABS</div>
             </div>
         )
     }

@@ -8,7 +8,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isProd = process.env.NODE_ENV === 'development'
 
 console.log(process.env.NODE_ENV);
-
 console.log(isProd);
 
 module.exports = {
@@ -68,12 +67,12 @@ module.exports = {
                          hmr: process.env.NODE_ENV === 'development',
                          // if hmr does not work, this is a forceful method.
                          reloadAll: true
-                       },
+                       }
                     },
                     {
                       loader: 'css-loader',
                       options: {
-                          modules: true,
+                          // modules: true,
                           importLoaders: 1
                       }
                     },
