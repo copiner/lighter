@@ -3,10 +3,10 @@ element.setAttribute("id","root");
 document.body.appendChild(element);
 
 
-// import render from './0417/';
+// import render from './200417/';
 //
 // render();
 
-import wind from './1221/';
+import wind from './191221/';
 
-wind();
+console.log(wind)

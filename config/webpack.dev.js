@@ -51,7 +51,7 @@ module.exports = {
                        loader: MiniCssExtractPlugin.loader,
                        options: {
                          //publicPath: '../',
-                         esModule: true,
+                         // esModule: true,
                          // only enable hot in development
                          hmr: isDev,
                          // if hmr does not work, this is a forceful method.
