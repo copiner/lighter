@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "webpack --config config/webpack.test.js",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --color --config config/webpack.dev.js",
-    "build": "cross-env NODE_ENV=production && webpack --config config/webpack.pro.js",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --color --config config/webpack.dev.js",
+    "dev": "cross-env NODE_ENV=development webpack --color --config config/webpack.dev.js",
+    "pro": "cross-env NODE_ENV=production webpack --config config/webpack.pro.js",
     "babel": "./node_modules/.bin/babel src --out-dir dist"
   },
   "author": "",
@@ -28,16 +29,13 @@
     "mini-css-extract-plugin": "^0.8.0",
     "postcss": "^7.0.27",
     "postcss-loader": "^3.0.0",
-    "postcss-modules": "^2.0.0",
     "postcss-preset-env": "^6.7.0",
-    "style-loader": "^1.0.0",
     "url-loader": "^2.2.0",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2"
   },
   "dependencies": {
-    "babel-plugin-react-css-modules": "^5.2.6",
     "core-js": "^3.6.5",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",

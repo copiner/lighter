@@ -5,8 +5,8 @@ module.exports = {
             edge:"17",
             firefox:"60",
             chrome:"58",
-            safari:"11.1",
-            ie: "11"
+            safari:"10",
+            ie: "9"
         },
         corejs: {
           version: 3,
@@ -22,9 +22,9 @@ module.exports = {
      ["@babel/plugin-transform-react-jsx", {
        useBuiltIns:true
      }],
-     ["react-css-modules", {
-        autoResolveMultipleImports:true,
-        exclude: 'node_modules'
-      }]
+    //  ["react-css-modules", {
+    //     autoResolveMultipleImports:true,
+    //     exclude: 'node_modules'
+    // }]
   ]
 }

@@ -1,9 +1,10 @@
 const webpack = require('webpack');
-const path = require("path");
+const { resolve } = require("path");
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin  = require('clean-webpack-plugin').CleanWebpackPlugin;
 const CompressionPlugin = require('compression-webpack-plugin');
+//const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
@@ -12,9 +13,8 @@ module.exports = {
      app: './src/index.js'
   },
   output: {
-    path: path.resolve(__dirname, '../build'),
+    path: resolve(__dirname, '../build'),
     filename: 'bundle-[hash].js',
-    chunkFilename: 'vendor-[hash].js',
     publicPath:'/'
   },
   module: {
@@ -38,7 +38,7 @@ module.exports = {
                 {
                   loader: 'url-loader',
                   options: {
-                    limit: 8192
+                    limit: 8*1024
                   }
                 }
               ]
@@ -47,7 +47,7 @@ module.exports = {
                 test: /\.css$/,
                 use: [
 
-                  'style-loader',
+                  //'style-loader',
 
                   MiniCssExtractPlugin.loader,
 
@@ -65,22 +65,14 @@ module.exports = {
         ]
     },
     plugins: [
-         new webpack.DefinePlugin({
-            ENV: JSON.stringify(process.env.NODE_ENV)
-         }),
          new HtmlWebpackPlugin({ // 打包输出HTML
-            title: 'Hello World',
-            filename: 'index.html'
+            title: 'Hello World'
          }),
          new CleanWebpackPlugin(),
          new CompressionPlugin(),
          new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // all options are optional
-            filename: 'index-[hash].css',
-            chunkFilename: 'index-[id].css',
-
-            ignoreOrder: false, // Enable to remove warnings about conflicting order
+            filename: '[hash].css',
+            ignoreOrder: false
         })
-     ]
+    ]
 }
