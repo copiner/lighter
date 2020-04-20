@@ -1,6 +1,6 @@
 module.exports = {
   presets: [
-    ["@babel/env",{
+    ["@babel/preset-env",{
         targets: {
             edge:"17",
             firefox:"60",
@@ -21,10 +21,6 @@ module.exports = {
   plugins : [
      ["@babel/plugin-transform-react-jsx", {
        useBuiltIns:true
-     }],
-    //  ["react-css-modules", {
-    //     autoResolveMultipleImports:true,
-    //     exclude: 'node_modules'
-    // }]
+     }]
   ]
 }
