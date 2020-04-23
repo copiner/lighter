@@ -1,14 +1,16 @@
-const webpack = require('webpack');
+const Webpack = require('webpack');
 const { resolve } = require("path");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const AddAssetHtmlWebpackkPlugin = require('add-asset-html-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
   mode: "development",
-  devtool: 'inline-source-map',
+  devtool: 'source-map',//eval-source-map
   entry: {
      app: './src/index.js'
   },
@@ -22,12 +24,22 @@ module.exports = {
             {
                 test: /(\.jsx|\.js)$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                }
+                use: [
+                      {
+                          loader: "babel-loader",
+                          options:{
+                            cacheDirectory:true//缓存
+                          }
+                      },
+                      // {
+                      //   loader:'eslint-loader',//检查规则eslint.config.js
+                      //   options:{}
+                      // }
+                ]
             },
             {
               test: /\.(png|jpg|gif)$/,
+              exclude: /node_modules/,
               use: [
                 {
                   loader: 'file-loader',
@@ -38,15 +50,17 @@ module.exports = {
                 {
                   loader: 'url-loader',
                   options: {
-                    limit: 8*1024
+                    limit: 8*1024,
+                    // esModule:true,
+                    name:'[hash:10].[ext]'
                   }
                 }
               ]
             },
             {
                 test: /\.css$/,
+                exclude: /node_modules/,
                 use: [
-                    //"style-loader",
                     {
                        loader: MiniCssExtractPlugin.loader,
                        options: {
@@ -68,17 +82,34 @@ module.exports = {
                     },
                     { loader: 'postcss-loader' }
                 ]
+            },
+            {
+                test:/\.(ttf|woff|woff2|eot|svg)$/,
+                exclude:/node_modules/,
+                loader:'file-loader',
+                options:{
+                    name:'[hash:10].[ext]'
+                }
             }
         ]
     },
     plugins: [
       new HtmlWebpackPlugin({
-        title: 'Hello World'
+        title: 'Hello World',
+        // template:resolve(__dirname,'../src/index.html')
       }),
-      new webpack.HotModuleReplacementPlugin(),
+      new CleanWebpackPlugin(),
+      new Webpack.HotModuleReplacementPlugin(),
       new MiniCssExtractPlugin({
-        filename: 'index-[hash].css'
-      })
+        filename: 'index-[hash:10].css'
+      }),
+      new Webpack.DllReferencePlugin({
+        manifest:resolve(__dirname,'../dll/manifest.json')
+      }),
+      new AddAssetHtmlWebpackkPlugin([
+        // {filepath:resolve(__dirname,'../dll/jquery.js')},
+        {filepath:resolve(__dirname,'../dll/react.js')}
+      ])
     ],
     optimization: {
       splitChunks: {
@@ -103,12 +134,12 @@ module.exports = {
       }
     },
    devServer: {
-      contentBase: resolve(__dirname, "build"),
+      contentBase: resolve(__dirname, "../build"),
       historyApiFallback: true,
       host:"127.0.0.1",
       port: 9000,
       inline: true,
-      hot: true,
+      hot: true
       // proxy: {
       //    '/api': {
       //      target: 'http://192.168.23.213:8080',

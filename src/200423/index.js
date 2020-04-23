@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import asyncComponent from './util/';
 
-// import Button from './button';
-const Button = asyncComponent(() => import('./button'));
-
+import Hook from './hook';
 
 let render = () =>{
   ReactDom.render(
-      <Button/>,
+      <Hook/>,
       document.getElementById('root')
   );
 }

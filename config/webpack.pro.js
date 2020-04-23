@@ -1,14 +1,14 @@
-const webpack = require('webpack');
+const Webpack = require('webpack');
 const { resolve } = require("path");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin  = require('clean-webpack-plugin').CleanWebpackPlugin;
-const CompressionPlugin = require('compression-webpack-plugin');
-//const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const AddAssetHtmlWebpackkPlugin = require('add-asset-html-webpack-plugin');
 
 module.exports = {
   mode: "production",
+  devtool: 'source-map',
   entry: {
      app: './src/index.js'
   },
@@ -67,10 +67,16 @@ module.exports = {
             title: 'Hello World'
          }),
          new CleanWebpackPlugin(),
-         new CompressionPlugin(),
          new MiniCssExtractPlugin({
             filename: '[hash].css',
             ignoreOrder: false
-        })
+        }),
+        new Webpack.DllReferencePlugin({
+          manifest:resolve(__dirname,'../dll/manifest.json')
+        }),
+        new AddAssetHtmlWebpackkPlugin([
+          // {filepath:resolve(__dirname,'../dll/jquery.js')},
+          {filepath:resolve(__dirname,'../dll/react.js')}
+        ])
     ]
 }
