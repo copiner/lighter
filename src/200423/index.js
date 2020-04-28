@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 import Hook from './hook';
-
 import { FriendStatus, FriendListItem } from './hook/effect';
 
 import App from './hook/context';

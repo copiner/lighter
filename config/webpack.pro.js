@@ -64,7 +64,8 @@ module.exports = {
     },
     plugins: [
          new HtmlWebpackPlugin({ // 打包输出HTML
-            title: 'Hello World'
+            title: 'Hello World',
+            favicon: resolve(__dirname,'../favicon.ico')
          }),
          new CleanWebpackPlugin(),
          new MiniCssExtractPlugin({

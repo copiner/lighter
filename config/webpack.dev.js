@@ -96,6 +96,7 @@ module.exports = {
     plugins: [
       new HtmlWebpackPlugin({
         title: 'Hello World',
+        favicon: resolve(__dirname,'../favicon.ico')
         // template:resolve(__dirname,'../src/index.html')
       }),
       new CleanWebpackPlugin(),
