@@ -2,9 +2,6 @@ const element = document.createElement('div');
 element.setAttribute("id","root");
 document.body.appendChild(element);
 
-
-
-
 // import render from './200417/';
 //
 // render();
@@ -17,6 +14,7 @@ document.body.appendChild(element);
 //
 // hh();
 
+/*
 
 import { add } from './util';
 import { dec2hex, dec2bin, dec2oct, bin2dec } from './util';
@@ -32,10 +30,21 @@ let b = '100000000000000000000000000000000000000000000000000000';
 
 console.log(bin2dec(b));
 
+*/
+/*
+import render from './life/';
+
+render()
+*/
+
+import render from './state/';
+
+render()
+
 if (module.hot) {
   // module.hot 为 true 则开启HMR功能
-  module.hot.accept('./200423/index.js', () => {
+  module.hot.accept('./state/app.js', () => {
     // 监听index.js变化，发生变化，执行该回调函数
-    //hh();
+    render();
   });
 }
