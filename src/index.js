@@ -31,19 +31,19 @@ let b = '100000000000000000000000000000000000000000000000000000';
 console.log(bin2dec(b));
 
 */
-/*
+
 import render from './life/';
 
 render()
-*/
 
+/*
 import render from './state/';
 
 render()
-
+*/
 if (module.hot) {
   // module.hot 为 true 则开启HMR功能
-  module.hot.accept('./state/app.js', () => {
+  module.hot.accept('./life/app.js', () => {
     // 监听index.js变化，发生变化，执行该回调函数
     render();
   });

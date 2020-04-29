@@ -55,7 +55,7 @@ class App extends React.Component {
   }
 
   onClickForTitleAsy = async ()=>{
-  //async onClickForTitleAsy(){
+  //async onClickForTitleAsy(){ //this!!!
     await this.setState({ title: "content:bbbbb" });
     console.log("state.title:", this.state.title);
   }

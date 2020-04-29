@@ -2,10 +2,10 @@ import ReactDOM from "react-dom";
 import React from "react";
 
 //old
-import LifeCycle from "./lifec";
+//import LifeCycle from "./lifec";
 
 //new
-//import LifeCycle from "./nlifec";
+import LifeCycle from "./nlifec";
 
 class App extends React.Component {
     constructor(props) {
