@@ -6,7 +6,7 @@ module.exports = {
     REFRESH: '/oauth/token',
   },
   // 系统
-  SYS: {
+  SYSTEM: {
     MENUS: '/sys/user/index',
     LOGO: {
       FETCH: '/api/open/logo/get'
@@ -43,8 +43,5 @@ module.exports = {
     SELECT: '/audit/appuser/business/select',
     BUSINESS_LIST: '/audit/appuser/business/list',
     RISK: '/risk/v2/',
-  },
-  UPLOAD:{
-    URL:'/smk/customer/list/customerImport'
   }
 }
