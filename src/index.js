@@ -2,6 +2,8 @@ const element = document.createElement('div');
 element.setAttribute("id","root");
 document.body.appendChild(element);
 
+import ls from './utils/localStorage'
+console.log(ls)
 // import render from './200417/';
 //
 // render();
