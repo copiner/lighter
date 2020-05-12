@@ -4,15 +4,15 @@ document.body.appendChild(element);
 
 import ls from './utils/localStorage'
 console.log(ls)
-// import render from './200417/';
+// import render from './button/';
 //
 // render();
 
-// import wind from './191221/';
+// import wind from './hook/';
 //
 // console.log(wind)
 
-// import hh from './200423/';
+// import hh from './module/';
 //
 // hh();
 
