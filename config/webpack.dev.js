@@ -17,6 +17,7 @@ module.exports = {
   output: {
     path: resolve(__dirname, '../build'),
     filename: 'bundle-[hash].js',
+    chunkFilename: 'vendor.js',
     publicPath:'/'
   },
   module: {
