@@ -4,7 +4,6 @@ dec 10进制
 oct 8进制
 bin 2进制
 */
-
 export function dec2hex(str){
     var dec = str.toString().split(''), sum = [], hex = [], i, s;
     //console.log(1 * dec.shift())
