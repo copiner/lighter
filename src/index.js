@@ -11,8 +11,8 @@ document.body.appendChild(element);
 // import hh from './module/';
 // hh();
 
-import render from './life/';
 
+import render from './hoc/';
 render()
 
 /*
@@ -21,7 +21,7 @@ render()
 */
 if (module.hot) {
   // module.hot 为 true 则开启HMR功能
-  module.hot.accept('./life/app.js', () => {
+  module.hot.accept('./hoc/index.js', () => {
     // 监听index.js变化，发生变化，执行该回调函数
     render();
   });
@@ -46,7 +46,7 @@ let b = '100000000000000000000000000000000000000000000000000000';
 console.log(bin2dec(b));
 
 */
-import { flat } from './arr';
-let array = [1, [2], [3, [4, [5]]]];
-
-console.log(flat(array))
+// import { flat } from './arr';
+// let array = [1, [2], [3, [4, [5]]]];
+//
+// console.log(flat(array))
