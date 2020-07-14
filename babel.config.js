@@ -23,7 +23,6 @@ module.exports = {
       }],
      ["@babel/plugin-transform-runtime",{
        corejs:3
-     }],
-     "@babel/plugin-syntax-dynamic-import"
+     }]
   ]
 }

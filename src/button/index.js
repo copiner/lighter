@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import asyncComponent from './util/';
+// import asyncComponent from './util/';
 // import Button from './item';
 //const Button = asyncComponent(() => import('./item'));
 
-const Button = () => import(/* webpackChunkName: "button" */'./item');
+import loadable from '@loadable/component'
+const Button = loadable(() => import(/* webpackChunkName: "item" */'./item'))
+
 
 let render = () =>{
   ReactDom.render(
