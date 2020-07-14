@@ -1,20 +1,21 @@
 const Webpack = require('webpack');
 const { resolve } = require("path");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const AddAssetHtmlWebpackkPlugin = require('add-asset-html-webpack-plugin');
 
 module.exports = {
   mode: "production",
   devtool: 'source-map',
   entry: {
-     app: './src/index.js'
+     app:[ './src/index.js']
   },
   output: {
     path: resolve(__dirname, '../build'),
     filename: 'bundle-[hash].js',
+    chunkFilename: '[name].bundle.js',
     publicPath:'/'
   },
   module: {
@@ -64,20 +65,60 @@ module.exports = {
     },
     plugins: [
          new HtmlWebpackPlugin({ // 打包输出HTML
-            title: 'Hello World',
-            favicon: resolve(__dirname,'../favicon.ico')
+           title: 'Hello World',
+           template:'./public/index.html',
+           filename: "index.html",
+           favicon: "./public/favicon.ico"
          }),
          new CleanWebpackPlugin(),
          new MiniCssExtractPlugin({
-            filename: '[hash].css',
+            filename: '[name]-[hash].css',
             ignoreOrder: false
-        }),
-        new Webpack.DllReferencePlugin({
-          manifest:resolve(__dirname,'../dll/manifest.json')
-        }),
-        new AddAssetHtmlWebpackkPlugin([
-          // {filepath:resolve(__dirname,'../dll/jquery.js')},
-          {filepath:resolve(__dirname,'../dll/react.js')}
-        ])
-    ]
+        })
+        //new BundleAnalyzerPlugin()
+    ],
+    optimization: {
+       splitChunks: {
+         chunks: 'async',
+         minSize: 30000,
+         maxSize: 0,
+         minChunks: 1,
+         maxAsyncRequests: 5,
+         maxInitialRequests: 3,
+         automaticNameDelimiter: '-',
+         name: true,
+         cacheGroups: {
+           vendor: {
+             //第三方依赖
+             priority: 1,
+             name: 'vendor',
+             test: /node_modules/,
+             chunks: 'initial',
+             minSize: 100,
+             minChunks: 1 //重复引入了几次
+           },
+           lodash: {
+             name: "lodash", // 单独将lodash拆包
+             priority: 5, // 权重需大于`vendor`
+             test: /[\\/]node_modules[\\/](lodash)[\\/]/,
+             chunks: 'initial',
+             minSize: 100,
+             minChunks: 1
+           },
+           react: {
+             name: "react",
+             priority: 5, // 权重需大于`vendor`
+             test: /[\\/]node_modules[\\/](react|redux)[\\/]/,
+             chunks: 'initial',
+             minSize: 100,
+             minChunks: 1
+           },
+           default: {
+             minChunks: 2,
+             priority: -20,
+             reuseExistingChunk: true
+           }
+         }
+       }
+     }
 }

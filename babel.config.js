@@ -2,11 +2,7 @@ module.exports = {
   presets: [
     ["@babel/preset-env",{
         targets: {
-            edge:"17",
-            firefox:"60",
-            chrome:"58",
-            safari:"10",
-            ie: "9"
+            browsers: ["defaults", "not ie 11"]
         },
         corejs: {
           version: 3,
@@ -21,6 +17,13 @@ module.exports = {
   plugins : [
      ["@babel/plugin-proposal-class-properties", {
        loose: true
-     }]
+     }],
+     ["@babel/plugin-transform-react-jsx", {
+        useBuiltIns:true
+      }],
+     ["@babel/plugin-transform-runtime",{
+       corejs:3
+     }],
+     "@babel/plugin-syntax-dynamic-import"
   ]
 }

@@ -76,7 +76,7 @@ export function dec2oct(str){
 
 export function bin2dec(str){
   var bin = str.toString().split('').reverse(), sum = [], dec = [], i, s=0;
-  //console.log(Math.pow(2,61))//大于53次方有精度损失
+  //console.log(Math.pow(2,61))//大于2的53次方有精度损失
   for(i = 0; i < bin.length; i++){
       sum[i] = bin[i] * Math.pow(2,i);
   }

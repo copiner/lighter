@@ -1,9 +1,8 @@
-const element = document.createElement('div');
-element.setAttribute("id","root");
-document.body.appendChild(element);
 
-// import render from './button/';
-// render();
+import _ from 'lodash';
+import render from './button/';
+render();
+
 
 // import wind from './hook/';
 // console.log(wind)
@@ -12,20 +11,21 @@ document.body.appendChild(element);
 // hh();
 
 
-import render from './hoc/';
-render()
+// import render from './hoc/';
+// render()
 
 /*
 import render from './state/';
 render()
 */
-if (module.hot) {
-  // module.hot 为 true 则开启HMR功能
-  module.hot.accept('./hoc/index.js', () => {
-    // 监听index.js变化，发生变化，执行该回调函数
-    render();
-  });
-}
+
+// if (module.hot) {
+//   // module.hot 为 true 则开启HMR功能
+//   module.hot.accept('./button/index.js', () => {
+//     // 监听index.js变化，发生变化，执行该回调函数
+//     //render();
+//   });
+// }
 
 
 //test

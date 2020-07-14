@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import main from  './index.css';
-import style from  './button.css';
-
+import style from  './item.css';
 
 class Button extends Component {
     render() {
