@@ -23,6 +23,10 @@ module.exports = {
       }],
      ["@babel/plugin-transform-runtime",{
        corejs:3
+     }],
+     ["babel-plugin-import", {
+       libraryName: "antd",
+       style: "css",   // or 'css'
      }]
   ]
 }

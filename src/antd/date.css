@@ -1,0 +1,9 @@
+.box{
+  width: 400px;
+  border: 1px solid red;
+}
+
+.boxTop{
+  margin-top: 16px;
+  color: lightblue;
+}

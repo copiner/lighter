@@ -16,7 +16,7 @@ module.exports = {
   },
   output: {
     path: resolve(__dirname, '../build'),
-    filename: 'bundle-[hash].js',
+    filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js',
     publicPath:'/'
   },
@@ -34,7 +34,9 @@ module.exports = {
                       },
                       // {
                       //   loader:'eslint-loader',//检查规则eslint.config.js
-                      //   options:{}
+                      //   options:{
+                      //     cache: true
+                      //   }
                       // }
                 ]
             },
@@ -42,12 +44,12 @@ module.exports = {
               test: /\.(png|jpg|gif)$/,
               exclude: /node_modules/,
               use: [
-                {
-                  loader: 'file-loader',
-                  options: {
-                    name: '[path][name].[ext]'
-                  }
-                },
+                // {
+                //   loader: 'file-loader',
+                //   options: {
+                //     name: '[path][name].[ext]'
+                //   }
+                // },
                 {
                   loader: 'url-loader',
                   options: {
@@ -60,7 +62,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
+                include: resolve(__dirname, "../src"),
                 use: [
                     {
                        loader: MiniCssExtractPlugin.loader,
@@ -91,6 +93,11 @@ module.exports = {
                 options:{
                     name:'[hash:10].[ext]'
                 }
+            },
+            {
+                test:/\.css$/,
+                include:/[\\/]node_modules[\\/](antd)[\\/]/,
+                use: ['style-loader', 'css-loader']
             }
         ]
     },
@@ -107,7 +114,7 @@ module.exports = {
         filename: '[name]-[hash].css',
         chunkFilename: '[id]-[hash].css',
         ignoreOrder: false
-      })
+      }),
       //new BundleAnalyzerPlugin()
     ],
     optimization: {
@@ -140,7 +147,23 @@ module.exports = {
           react: {
             name: "react",
             priority: 5, // 权重需大于`vendor`
-            test: /[\\/]node_modules[\\/](react|redux)[\\/]/,
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            chunks: 'initial',
+            minSize: 100,
+            minChunks: 1
+          },
+          antd: {
+            name: "antd",
+            priority: 5, // 权重需大于`vendor`
+            test: /[\\/]node_modules[\\/](antd)[\\/]/,
+            chunks: 'initial',
+            minSize: 100,
+            minChunks: 1
+          },
+          moment: {
+            name: "moment",
+            priority: 5, // 权重需大于`vendor`
+            test: /[\\/]node_modules[\\/](moment)[\\/]/,
             chunks: 'initial',
             minSize: 100,
             minChunks: 1

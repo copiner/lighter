@@ -6,6 +6,8 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const isDev = process.env.NODE_ENV === 'development'
+
 module.exports = {
   mode: "production",
   devtool: 'source-map',
@@ -14,28 +16,28 @@ module.exports = {
   },
   output: {
     path: resolve(__dirname, '../build'),
-    filename: 'bundle-[hash].js',
-    chunkFilename: '[name].bundle.js',
+    filename: '[name].[hash].js',
+    chunkFilename: '[name].[hash].js',
     publicPath:'/'
   },
   module: {
         rules: [
             {
                 test: /(\.jsx|\.js)$/,
+                include: resolve(__dirname, '../src'),
                 use: {
                     loader: "babel-loader",
-                },
-                exclude: /node_modules/
+                }
             },
             {
               test: /\.(png|jpg|gif)$/,
               use: [
-                {
-                  loader: 'file-loader',
-                  options: {
-                    name: '[path][name].[ext]'
-                  }
-                },
+                // {
+                //   loader: 'file-loader',
+                //   options: {
+                //     name: '[path][name].[ext]'
+                //   }
+                // },
                 {
                   loader: 'url-loader',
                   options: {
@@ -46,6 +48,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
+                exclude: /node_modules/,
                 use: [
                   //'style-loader',
                   MiniCssExtractPlugin.loader,
@@ -60,6 +63,19 @@ module.exports = {
                   },
                   { loader: 'postcss-loader' }
                 ]
+            },
+            {
+                test:/\.css$/,
+                include:/[\\/]node_modules[\\/](antd)[\\/]/,
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test:/\.(ttf|woff|woff2|eot|svg)$/,
+                exclude:/node_modules/,
+                loader:'file-loader',
+                options:{
+                    name:'[hash:10].[ext]'
+                }
             }
         ]
     },
@@ -74,8 +90,8 @@ module.exports = {
          new MiniCssExtractPlugin({
             filename: '[name]-[hash].css',
             ignoreOrder: false
-        })
-        //new BundleAnalyzerPlugin()
+        }),
+        new BundleAnalyzerPlugin()
     ],
     optimization: {
        splitChunks: {
@@ -107,8 +123,24 @@ module.exports = {
            },
            react: {
              name: "react",
+             priority: 5,
+             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+             chunks: 'initial',
+             minSize: 100,
+             minChunks: 1
+           },
+           antd: {
+             name: "antd",
              priority: 5, // 权重需大于`vendor`
-             test: /[\\/]node_modules[\\/](react|redux)[\\/]/,
+             test: /[\\/]node_modules[\\/](antd)[\\/]/,
+             chunks: 'initial',
+             minSize: 100,
+             minChunks: 1
+           },
+           moment: {
+             name: "moment",
+             priority: 5, // 权重需大于`vendor`
+             test: /[\\/]node_modules[\\/](moment)[\\/]/,
              chunks: 'initial',
              minSize: 100,
              minChunks: 1

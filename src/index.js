@@ -1,6 +1,6 @@
 
-import _ from 'lodash';
-import render from './button/';
+
+import render from './antd/';
 render();
 
 
