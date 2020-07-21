@@ -1,6 +1,6 @@
 
 
-import render from './antd/';
+import render from './goods/';
 render();
 
 

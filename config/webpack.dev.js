@@ -115,15 +115,16 @@ module.exports = {
         chunkFilename: '[id]-[hash].css',
         ignoreOrder: false
       }),
-      //new BundleAnalyzerPlugin()
+
+      //new BundleAnalyzerPlugin() //打包调整优化
     ],
     optimization: {
       splitChunks: {
           chunks: "async",
           minSize: 30000,
           minChunks: 1,
-          maxAsyncRequests: 5,
-          maxInitialRequests: 3,
+          maxAsyncRequests: 8,
+          maxInitialRequests: 5,
           automaticNameDelimiter: '-',
           name: true,
           cacheGroups: {
@@ -137,7 +138,7 @@ module.exports = {
             minChunks: 1 //重复引入了几次
           },
           lodash: {
-            name: "lodash", // 单独将lodash拆包
+            name: "lodash", //单独将lodash拆包
             priority: 5, // 权重需大于`vendor`
             test: /[\\/]node_modules[\\/](lodash)[\\/]/,
             chunks: 'initial',
